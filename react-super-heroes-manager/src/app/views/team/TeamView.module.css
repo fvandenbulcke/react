@@ -1,0 +1,10 @@
+.teamView {
+  border-left: 2px solid #ccc;
+  padding-left: 1rem;
+  width: 40%;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}

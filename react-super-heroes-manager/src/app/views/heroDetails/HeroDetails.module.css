@@ -1,0 +1,40 @@
+.heroDetails {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.heroDetailsTitle {
+  margin: 0;
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+.heroDetailsBody {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  height: 135px;
+}
+
+.heroDetailsBody img {
+  width: 150px;
+  max-height: 150px;
+  object-fit: contain;
+}
+
+.heroDetailsAttributes {
+  display: grid;
+  grid-template-columns: 100px 200px;
+}
+
+.heroDetailsAttributes ul{
+  margin: 0;
+  padding-inline-start: 20px;
+}
+
+.heroDetailsActions {
+  display: flex;
+  justify-content: end;
+}

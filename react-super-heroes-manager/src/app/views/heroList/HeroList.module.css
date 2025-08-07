@@ -1,0 +1,12 @@
+.heroList {
+  padding: 12px;
+}
+
+.heroList ul {
+  margin: 0;
+  padding: 0;
+}
+
+.heroList li {
+  list-style-type: none
+}

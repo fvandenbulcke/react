@@ -1,0 +1,7 @@
+.mainLayout {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 380px 800px 500px;
+  gap: 24px;
+  border: solid red 1px;
+}
