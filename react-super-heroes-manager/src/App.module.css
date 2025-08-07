@@ -1,7 +1,8 @@
 .mainLayout {
+  width: 100%;
   padding: 24px;
   display: grid;
-  grid-template-columns: 380px 800px 500px;
+  grid-template-columns: 30fr 40fr 30fr;
   gap: 24px;
   border: solid red 1px;
 }

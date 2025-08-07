@@ -8,15 +8,16 @@ type Props = {
 }
 
 export const HeroDetails = ({ hero }: Props) => {
-	const { team, addToTeam, removeFromTeam } = useTeam();
+	const { addToTeam, removeFromTeam, isHeroInTeam, isTeamFull } = useTeam();
   
 	if (!hero) {
 		return <p data-testid="no-selected-hero-message">Sélectionne un super-héros pour voir les détails</p>;
 	}
-	const inTeam = team.some(h => h.id === hero.id);
+
+	const isAlreadyInTeam = isHeroInTeam(hero.id);
 	const action = {
-		label: inTeam ? 'Retirer de l’équipe' : 'Ajouter à l’équipe',
-		onClick: inTeam ? () => removeFromTeam(hero.id) : () => addToTeam(hero.id),
+		label: isAlreadyInTeam && 'Retirer de l’équipe' || 'Ajouter à l’équipe',
+		onClick: isAlreadyInTeam && (() => removeFromTeam(hero.id)) || (() => addToTeam(hero.id)),
 	};
 
 	return (
@@ -40,7 +41,12 @@ export const HeroDetails = ({ hero }: Props) => {
 				</div>
 			</div>
 			<div className={styles.heroDetailsActions}>
-				<TheButton data-testid="hero-details-action" label={action.label} onClick={action.onClick} />
+				<TheButton
+					data-testid="hero-details-action"
+					label={action.label}
+					disabled={isTeamFull && !isAlreadyInTeam}
+					onClick={action.onClick}
+				/>
 			</div>
 		</div>
 	);

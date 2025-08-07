@@ -12,19 +12,26 @@ const mockHero: Hero = {
 	imageUrl: 'https://via.placeholder.com/150?text=Wonder+Woman'
 };
 
-let teamMock: Hero[] = [];
 const addToTeamMock = jest.fn();
 const removeFromTeamMock = jest.fn();
+const isHeroInTeamMock = jest.fn();
+let isTeamFullMock = false;
 
 jest.mock('../../contexts/TeamContext', () => ({
 	useTeam: () => ({
-		team: teamMock,
 		addToTeam: (heroId: string) => addToTeamMock(heroId),
 		removeFromTeam: (heroId: string) => removeFromTeamMock(heroId),
+		isHeroInTeam: (heroId: string) => isHeroInTeamMock(heroId),
+		isTeamFull: isTeamFullMock,
 	})
 }));
 
 describe('HeroDetails', () => {
+	beforeEach(() => {
+		jest.clearAllMocks();
+		isHeroInTeamMock.mockReturnValue(false);
+		isTeamFullMock = false;
+	});
 
 	describe('when hero is not defined', () => {
 		beforeEach(() => {
@@ -68,7 +75,6 @@ describe('HeroDetails', () => {
 		});
 
 		test('should be able to add the hero in the team if not already added', () => {
-			teamMock = [];
 			localRerender(<HeroDetails hero={mockHero} />);
 			const action = screen.getByTestId('hero-details-action');
 			expect(action).toHaveTextContent('Ajouter à l’équipe');
@@ -77,12 +83,21 @@ describe('HeroDetails', () => {
 		});
 
 		test('should be able to remove the hero in the team if already added', () => {
-			teamMock = [mockHero];
+			isHeroInTeamMock.mockReturnValue(true);
 			localRerender(<HeroDetails hero={mockHero} />);
 			const action = screen.getByTestId('hero-details-action');
 			expect(action).toHaveTextContent('Retirer de l’équipe');
 			fireEvent.click(action);
 			expect(removeFromTeamMock).toHaveBeenCalledWith(99);
+		});
+
+		test('should not be able to add the hero in a full team', () => {
+			isTeamFullMock = true;
+			
+			localRerender(<HeroDetails hero={mockHero} />);
+			const action = screen.getByTestId('hero-details-action');
+			expect(action).toHaveTextContent('Ajouter à l’équipe');
+			expect(action).toHaveAttribute('disabled', '');
 		});
 	});
 });

@@ -71,7 +71,23 @@ describe('Team context', () => {
 		});
 		expect(alertMock).toHaveBeenCalledTimes(1);
 		expect(alertMock).toHaveBeenCalledWith('The team is limited to 5 members.');
+		expect(result.current.isTeamFull).toBe(true);
+	});
+
+	describe('should return if a member is in the team or not', () => {
+		const ID_OF_HERO_IN_TEAM = 1;
+		
+		beforeEach(() => {
+			act(() => {
+				result.current.addToTeam(ID_OF_HERO_IN_TEAM);
+			});
+		});
+
+		test.each([
+			{ condition: 'the hero belongs to the team', heroId: ID_OF_HERO_IN_TEAM, expected: true },
+			{ condition: 'the hero doaesnt belong to the team', heroId: 2, expected: false },
+		])('when $condition', ({ heroId, expected }) => {
+			expect(result.current.isHeroInTeam(heroId)).toBe(expected);
+		});
 	});
 });
-
-

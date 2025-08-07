@@ -70,6 +70,6 @@ export const heroes: Hero[] = [
 			'Force',
 			'Rage'
 		],
-		'imageUrl': 'https://static.wikia.nocookie.net/animeland-index/images/5/59/Hulk_%28comics_character%29.png/revision/latest?cb=20190603154526&path-prefix=fr'
+		'imageUrl': 'https://i.pinimg.com/736x/bb/60/cc/bb60ccad658c0f816597824bc95571f9.jpg'
 	}
 ];
