@@ -10,5 +10,7 @@ const config: Config = {
 	moduleDirectories: ['node_modules', 'src'],
 	setupFilesAfterEnv: ['<rootDir>/setupTests.ts'],
 	testMatch: ['**/*.test.tsx'],
+	collectCoverage: true,
+	coverageReporters: ['json', 'html']
 };
 export default config;

@@ -5,7 +5,7 @@ import { fetchHeroes } from './app/data/api';
 import { heroes as initialHeroes } from './app/data/heroes';
 import type { Hero } from './app/data/heroes';
 import { HeroList } from './app/views/heroList/HeroList';
-import { HeroDetails } from './app/views/heroDetails/HeroDetails';
+import { HeroDetailsPage } from './app/views/heroDetails/HeroDetailsPage';
 import { Team } from './app/views/team/Team';
 
 const App = () => {
@@ -26,7 +26,7 @@ const App = () => {
 	return (
 		<main className={styles.mainLayout}>
 			<HeroList heroes={heroes} onSelect={setSelectedHero} />
-			<HeroDetails hero={selectedHero} />
+			<HeroDetailsPage hero={selectedHero} />
 			<Team />
 		</main>
 	);

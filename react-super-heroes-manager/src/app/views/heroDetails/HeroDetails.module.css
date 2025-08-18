@@ -1,5 +1,4 @@
 .heroDetails {
-  padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -32,9 +31,4 @@
 .heroDetailsAttributes ul{
   margin: 0;
   padding-inline-start: 20px;
-}
-
-.heroDetailsActions {
-  display: flex;
-  justify-content: end;
 }

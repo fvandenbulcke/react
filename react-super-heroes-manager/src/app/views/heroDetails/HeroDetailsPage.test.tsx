@@ -1,7 +1,7 @@
 
 import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { HeroDetails } from './HeroDetails';
+import { HeroDetailsPage } from './HeroDetailsPage';
 import type { Hero } from '../../data/heroes';
 
 const mockHero: Hero = {
@@ -35,7 +35,7 @@ describe('HeroDetails', () => {
 
 	describe('when hero is not defined', () => {
 		beforeEach(() => {
-			render(<HeroDetails hero={undefined} />);
+			render(<HeroDetailsPage hero={undefined} />);
 		});
 
 		test('should display dedicated message to the user', () => {
@@ -47,7 +47,7 @@ describe('HeroDetails', () => {
 	describe('when hero is defined', () => {
 		let localRerender: (ui: React.ReactNode) => void;
 		beforeEach(() => {
-			const { rerender } = render(<HeroDetails hero={mockHero} />);
+			const { rerender } = render(<HeroDetailsPage hero={mockHero} />);
 			localRerender = rerender;
 		});
 		
@@ -75,7 +75,7 @@ describe('HeroDetails', () => {
 		});
 
 		test('should be able to add the hero in the team if not already added', () => {
-			localRerender(<HeroDetails hero={mockHero} />);
+			localRerender(<HeroDetailsPage hero={mockHero} />);
 			const action = screen.getByTestId('hero-details-action');
 			expect(action).toHaveTextContent('Ajouter à l’équipe');
 			fireEvent.click(action);
@@ -84,7 +84,7 @@ describe('HeroDetails', () => {
 
 		test('should be able to remove the hero in the team if already added', () => {
 			isHeroInTeamMock.mockReturnValue(true);
-			localRerender(<HeroDetails hero={mockHero} />);
+			localRerender(<HeroDetailsPage hero={mockHero} />);
 			const action = screen.getByTestId('hero-details-action');
 			expect(action).toHaveTextContent('Retirer de l’équipe');
 			fireEvent.click(action);
@@ -94,7 +94,7 @@ describe('HeroDetails', () => {
 		test('should not be able to add the hero in a full team', () => {
 			isTeamFullMock = true;
 			
-			localRerender(<HeroDetails hero={mockHero} />);
+			localRerender(<HeroDetailsPage hero={mockHero} />);
 			const action = screen.getByTestId('hero-details-action');
 			expect(action).toHaveTextContent('Ajouter à l’équipe');
 			expect(action).toHaveAttribute('disabled', '');

@@ -1,27 +1,14 @@
+import React from 'react';
 import type { Hero } from '../../data/heroes';
-import { useTeam } from '../../contexts/TeamContext';
 import styles from './HeroDetails.module.css';
-import { TheButton } from '../../component/button/TheButton';
 
 type Props = {
-  hero?: Hero
-}
+  hero: Hero;
+};
 
-export const HeroDetails = ({ hero }: Props) => {
-	const { addToTeam, removeFromTeam, isHeroInTeam, isTeamFull } = useTeam();
-  
-	if (!hero) {
-		return <p data-testid="no-selected-hero-message">Sélectionne un super-héros pour voir les détails</p>;
-	}
-
-	const isAlreadyInTeam = isHeroInTeam(hero.id);
-	const action = {
-		label: isAlreadyInTeam && 'Retirer de l’équipe' || 'Ajouter à l’équipe',
-		onClick: isAlreadyInTeam && (() => removeFromTeam(hero.id)) || (() => addToTeam(hero.id)),
-	};
-
+const HeroDetailsComponent = ({ hero }: Props) => {
 	return (
-		<div data-testid="hero-details" className={styles.heroDetails}>
+		<div className={styles.heroDetails}>
 			<h2 data-testid="hero-details-title" className={styles.heroDetailsTitle}>Détails de {hero.alias}</h2>
 			<div className={styles.heroDetailsBody}>
 				<div>
@@ -40,14 +27,8 @@ export const HeroDetails = ({ hero }: Props) => {
 					</ul>
 				</div>
 			</div>
-			<div className={styles.heroDetailsActions}>
-				<TheButton
-					data-testid="hero-details-action"
-					label={action.label}
-					disabled={isTeamFull && !isAlreadyInTeam}
-					onClick={action.onClick}
-				/>
-			</div>
 		</div>
 	);
 };
+
+export const HeroDetails = React.memo(HeroDetailsComponent, ({ hero: oldHero }, { hero: newHero }) => oldHero.id === newHero.id);

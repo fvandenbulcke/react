@@ -1,0 +1,11 @@
+.heroDetails {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.heroDetailsActions {
+  display: flex;
+  justify-content: end;
+}
